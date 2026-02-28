@@ -1,25 +1,28 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer"; // Ajout du Footer
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
+// Optimisation : display: 'swap' pour améliorer le FCP/LCP
 const inter = Inter({ 
   subsets: ["latin"], 
-  variable: "--font-inter" 
+  variable: "--font-inter",
+  display: 'swap',
 });
 
 const outfit = Outfit({ 
   subsets: ["latin"], 
-  variable: "--font-outfit" 
+  variable: "--font-outfit",
+  display: 'swap',
 });
 
 export const viewport: Viewport = {
   themeColor: "#14b8a6",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // Correction Accessibilité : Autoriser le zoom utilisateur pour le score 100
+  userScalable: true, 
 };
 
 export const metadata: Metadata = {
@@ -43,10 +46,10 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} font-sans bg-[#030712] text-white antialiased flex flex-col min-h-screen`}
       >
         <Header />
-        <div className="flex-grow">
+        <main id="main-content" className="flex-grow">
           {children}
-        </div>
-        <Footer /> {/* Footer intégré ici */}
+        </main>
+        <Footer />
       </body>
     </html>
   );
