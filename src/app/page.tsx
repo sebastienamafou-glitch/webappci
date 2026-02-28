@@ -11,57 +11,64 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#030712] text-white">
       {/* Section Hero - Identité WebAppCI */}
-      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-        
-        {/* Composant Texte Animé (reste au centre au-dessus) */}
+      <section 
+        className="relative pt-32 pb-20 px-4 overflow-hidden"
+        aria-label="Présentation de l'agence"
+      >
         <HeroText />
 
-        {/* Grille 3 colonnes pour l'animation centrale entourée des images */}
         <div className="max-w-7xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Colonne Gauche : Image Backend / Data */}
           <div className="hidden lg:block lg:col-span-3 relative h-[500px] rounded-2xl overflow-hidden border border-slate-800/50 shadow-2xl group">
             <Image
-              src="/backend_data.jpg" // Remplace par le nom exact de ton fichier
-              alt="Architecture Backend et Flux de Données"
+              src="/backend_data.jpg"
+              alt="Représentation abstraite de l'architecture backend"
               fill
+              sizes="(max-width: 1024px) 100vw, 25vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60" />
           </div>
 
-          {/* Colonne Centrale : L'Animation Hero (prend plus de place) */}
-          <div className="col-span-1 lg:col-span-6">
+          {/* Colonne Centrale : L'Animation Hero */}
+          <div className="col-span-1 lg:col-span-6" aria-hidden="true">
             <HeroAnimation />
           </div>
 
           {/* Colonne Droite : Image Frontend / PWA */}
           <div className="hidden lg:block lg:col-span-3 relative h-[500px] rounded-2xl overflow-hidden border border-slate-800/50 shadow-2xl group">
             <Image
-              src="/frontend_pwa.jpg" // Remplace par le nom exact de ton fichier
-              alt="Expérience Utilisateur Frontend et PWA"
+              src="/frontend_pwa.jpg"
+              alt="Interface utilisateur moderne sur smartphone"
               fill
+              sizes="(max-width: 1024px) 100vw, 25vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60" />
           </div>
-          
         </div>
       </section>
 
-      {/* Section Expertise */}
-      <ExpertiseSection />
+      {/* Section Expertise - Aria label intégré dans le composant ou ici */}
+      <section aria-label="Nos expertises techniques">
+        <ExpertiseSection />
+      </section>
       
       {/* Section Approche */}
-      <ApprocheSection />
+      <section aria-label="Notre méthodologie de travail">
+        <ApprocheSection />
+      </section>
       
       {/* Grid de Projets */}
-      <section id="projets" className="max-w-7xl mx-auto px-4 py-32">
+      <section id="projets" className="max-w-7xl mx-auto px-4 py-32" aria-labelledby="projets-title">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-2xl font-bold font-heading">Réalisations Signature</h2>
-          <div className="h-px flex-1 bg-slate-800 ml-8 hidden md:block"></div>
+          <h2 id="projets-title" className="text-2xl font-bold font-heading text-white">
+            Réalisations Signature
+          </h2>
+          <div className="h-px flex-1 bg-slate-800 ml-8 hidden md:block" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
