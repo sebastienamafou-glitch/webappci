@@ -1,49 +1,97 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, Variants } from 'framer-motion';
+
+// On définit les variants à l'extérieur avec "as const" pour satisfaire TypeScript
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8, 
+      ease: "easeOut" // Le "as const" ou le typage explicite règle l'erreur TS
+    } 
+  },
+} as const;
 
 export default function HeroText() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Empêche le mismatch serveur/client (L'Excellence Web vs WebappCI)
+  if (!isMounted) return <div className="min-h-[300px]" />;
+
   return (
-    <div className="max-w-7xl mx-auto text-center relative z-10">
-      {/* Badge avec apparition fluide */}
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="max-w-7xl mx-auto text-center relative z-10"
+    >
+      {/* Badge avec entrée latérale */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-8"
+        variants={itemVariants}
+        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-[0.2em] mb-10"
       >
         <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
-        PWA Ready - Version 2.0
+        Ingénierie PWA • Made in CI
       </motion.div>
       
-      {/* Titre avec effet de glissement */}
+      {/* Titre Principal : WebappCI avec effet de brillance */}
       <motion.h1 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight font-heading"
+        variants={itemVariants}
+        className="text-6xl md:text-8xl font-black mb-8 tracking-tighter font-heading leading-tight"
       >
-        L'Excellence Web <br />
-        {/* Dégradé animé en continu (Ondulation) */}
-        <motion.span 
-          animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-blue-500 to-teal-300 bg-[length:200%_auto]"
-        >
-          Made in CI.
-        </motion.span>
+        Webapp
+        <span className="text-teal-400 relative">
+          CI
+          <motion.span 
+            className="absolute -bottom-2 left-0 w-full h-1 bg-teal-500/30 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: '100%' }}
+            transition={{ delay: 1, duration: 1 }}
+          />
+        </span>
       </motion.h1>
 
-      {/* Paragraphe avec fondu */}
-      <motion.p 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-sans mb-12"
+      {/* Slogan avec Dégradé Animé */}
+      <motion.div 
+        variants={itemVariants}
+        className="mb-12"
       >
-        Nous bâtissons des écosystèmes digitaux hautes performances. 
-        Découvrez nos réalisations validées par nos schémas de données stricts.
+        <motion.span 
+          animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+          className="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-blue-500 to-teal-300 bg-[length:200%_auto] block"
+        >
+          L'Excellence Logicielle.
+        </motion.span>
+      </motion.div>
+
+      {/* Paragraphe descriptif */}
+      <motion.p 
+        variants={itemVariants}
+        className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-sans font-light"
+      >
+        Nous transformons vos visions en écosystèmes digitaux hautes performances, 
+        propulsés par une architecture rigoureuse et des schémas de données stricts.
       </motion.p>
-    </div>
+    </motion.div>
   );
 }
