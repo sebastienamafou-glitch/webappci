@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { z } from 'zod';
 
-// Initialisation de Resend (la clé sera dans ton .env)
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Contrat de données strict correspondant à ton formulaire
+// Contrat de données strict (Best Practice)
 const ContactSchema = z.object({
   name: z.string().min(2, "Nom trop court"),
   email: z.string().email("Email invalide"),
@@ -17,10 +14,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // 1. Validation stricte avec safeParse (Best Practice)
+    // 1. Validation stricte avec safeParse
     const validation = ContactSchema.safeParse(body);
 
-    // Si la validation échoue, on renvoie les erreurs formatées proprement
     if (!validation.success) {
       return NextResponse.json(
         { success: false, errors: validation.error.flatten().fieldErrors }, 
@@ -28,30 +24,46 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Si succès, on récupère les données typées
-    const validatedData = validation.data;
+    const { name, email, projectType, details } = validation.data;
 
-    // 3. Envoi de l'email via Resend
-    const data = await resend.emails.send({
-      from: 'WebAppCI <onboarding@resend.dev>', // À changer avec ton domaine en prod
-      to: ['contact@webappci.com'], // Ton adresse de réception
-      subject: `🔥 Nouveau Lead Premium : ${validatedData.projectType} - ${validatedData.name}`,
-      text: `
-        Nom: ${validatedData.name}
-        Email: ${validatedData.email}
-        Type de Projet: ${validatedData.projectType}
-        
-        Détails:
-        ${validatedData.details}
+    // 2. Configuration du transporteur SMTP Hostinger
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: true, // true pour le port 465
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+
+    // 3. Envoi de l'email
+    await transporter.sendMail({
+      from: `"WebAppCI Contact" <${process.env.SMTP_USER}>`,
+      to: process.env.SMTP_USER, // Réception sur ton adresse Hostinger
+      replyTo: email, // Permet de répondre directement au client
+      subject: `🔥 Nouveau Lead : ${projectType} - ${name}`,
+      html: `
+        <div style="font-family: sans-serif; line-height: 1.5;">
+          <h2>Nouveau message de contact</h2>
+          <p><strong>Nom :</strong> ${name}</p>
+          <p><strong>Email :</strong> ${email}</p>
+          <p><strong>Type de projet :</strong> ${projectType}</p>
+          <p><strong>Détails :</strong></p>
+          <div style="background: #f4f4f4; padding: 15px; border-radius: 5px;">
+            ${details.replace(/\n/g, '<br>')}
+          </div>
+        </div>
       `,
     });
 
-    // 4. Réponse succès
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    // Ce catch ne gère désormais que les vraies erreurs serveur (ex: Resend down, body malformé)
     console.error("Erreur serveur API Contact :", error);
-    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Erreur lors de l\'envoi du message' }, 
+      { status: 500 }
+    );
   }
 }
