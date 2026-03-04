@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import "./globals.css";
 
 // Optimisation : display: 'swap' pour améliorer le FCP/LCP
@@ -101,6 +102,9 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        
+        {/* 2. Ajout du tracker Google Analytics */}
+        <GoogleAnalytics gaId="G-82KDK210TW" />
       </body>
     </html>
   );
