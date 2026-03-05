@@ -31,8 +31,9 @@ export default function Footer() {
             <div className="flex flex-col gap-3 text-sm text-slate-400">
               <Link href="#expertise" className="hover:text-brand-400 transition-colors">Expertise</Link>
               <Link href="#projets" className="hover:text-brand-400 transition-colors">Projets Signature</Link>
-              <Link href="#approche" className="hover:text-brand-400 transition-colors">Notre Approche</Link>
+              <Link href="#methodologie" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Méthodologie</Link>
               <Link href="#contact" className="hover:text-brand-400 transition-colors">Estimation Gratuite</Link>
+              <Link href="#avantage" className="hover:text-brand-400 transition-colors">Avantage Tech</Link>
             </div>
           </div>
 

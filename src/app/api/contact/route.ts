@@ -7,6 +7,7 @@ const ContactSchema = z.object({
   name: z.string().min(2, "Nom trop court"),
   email: z.string().email("Email invalide"),
   projectType: z.string(),
+  budget: z.string(),
   details: z.string().min(10, "Détails insuffisants"),
 });
 
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, projectType, details } = validation.data;
+    const { name, email, projectType, budget, details } = validation.data;
 
     // 2. Configuration du transporteur SMTP Hostinger
     const transporter = nodemailer.createTransport({
@@ -49,8 +50,9 @@ export async function POST(request: Request) {
           <p><strong>Nom :</strong> ${name}</p>
           <p><strong>Email :</strong> ${email}</p>
           <p><strong>Type de projet :</strong> ${projectType}</p>
+          <p><strong>Budget estimé :</strong> ${budget}</p>
           <p><strong>Détails :</strong></p>
-          <div style="background: #f4f4f4; padding: 15px; border-radius: 5px;">
+          <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; color: #333;">
             ${details.replace(/\n/g, '<br>')}
           </div>
         </div>

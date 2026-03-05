@@ -45,8 +45,8 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="#expertise" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Expertise</Link>
             <Link href="#projets" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Projets</Link>
-            <Link href="#approche" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Notre Approche</Link>
-            <Link href="#contact" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Contact</Link>
+            <Link href="#methodologie" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Méthodologie</Link>
+            <Link href="#avantage" className="text-sm font-medium text-slate-300 hover:text-teal-400 transition-colors">Avantage Tech</Link>
             
             {/* Bouton animé */}
             <Link href="#contact" className="group flex items-center gap-2 px-5 py-2.5 bg-teal-500 text-slate-950 font-bold rounded-full hover:bg-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]">
@@ -67,7 +67,8 @@ export default function Header() {
         <div className="md:hidden bg-[#030712] border-b border-slate-800 p-4 space-y-4 shadow-xl">
           <Link href="#expertise" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Expertise</Link>
           <Link href="#projets" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Projets</Link>
-          <Link href="#approche" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Notre Approche</Link>
+          <Link href="#methodologie" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Méthodologie</Link>
+          <Link href="#avantage" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Avantage Tech</Link>
           <Link href="#contact" className="block text-slate-300 py-2 hover:text-teal-400" onClick={closeMenu}>Contact</Link>
           <div className="w-full flex justify-center pt-2 pb-4">
             <InstallPWA />
