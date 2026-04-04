@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -8,21 +9,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div className="md:col-span-2 space-y-4">
+            {/* LOGO */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-slate-800 group-hover:border-brand-500 transition-colors">
-                <Image 
-                  src="/logo_webappci.png" 
-                  alt="Logo Web App CI"
-                  fill
-                  className="object-contain p-1"
-                />
-              </div>
-              <span className="font-heading font-bold text-xl tracking-tight text-white">
-                WebApp<span className="text-brand-400">CI</span>
-              </span>
+                <Image src="/logo_webappci.png" alt="Logo Webappci" width={50} height={50} className="object-contain group-hover:scale-105 transition duration-300 shrink-0" />
+                <div className="flex flex-col">
+                    <span className="self-center text-lg font-black tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-teal-300">
+                        WEBAPPCI<span className="text-teal-400">.COM</span>
+                    </span>
+                    <span className="text-[9px] text-slate-500 font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+                        <ShieldCheck className="w-2 h-2 text-teal-500" /> Architectes de votre Croissance Numérique
+                    </span>
+                </div>
             </Link>
-            <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
-              L'excellence Web Made in CI. Nous bâtissons des écosystèmes digitaux hautes performances et des PWA sur-mesure pour propulser votre croissance.
+            
+            <p className="text-slate-400 text-sm max-w-sm leading-relaxed mt-4">
+              Nous bâtissons des écosystèmes digitaux hautes performances et des PWA sur-mesure pour propulser votre croissance.
             </p>
           </div>
           
@@ -41,7 +42,7 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4 font-heading">Contact</h4>
             <div className="flex flex-col gap-3 text-sm text-slate-400">
               <a href="mailto:contact@webappci.com" className="hover:text-brand-400 transition-colors">contact@webappci.com</a>
-              <p>Abidjan, Côte d'Ivoire</p>
+              <p>France, International</p>
               <p className="text-xs mt-2 inline-block px-2 py-1 border border-brand-500/30 text-brand-400 rounded bg-brand-500/10">
                 Disponibilité : Ouvert aux projets
               </p>

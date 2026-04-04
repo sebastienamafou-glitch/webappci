@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Zap } from 'lucide-react';
-import InstallPWA from '@/components/pwa/InstallPWA';
+import { Menu, X, Zap, ShieldCheck } from 'lucide-react';
+import InstallPWA from '@/components/pwa/InstallPWA'; // Supposant que ce composant existe dans ton projet
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,20 +25,28 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
-          {/* Logo */}
+          {/* LOGO (Solution au logo "flottant") */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 overflow-hidden rounded-lg border border-slate-800 group-hover:border-teal-500 transition-colors">
+              {/* Conteneur extérieur (Cadre blanc agrandi à w-14) */}
+              {/* CHANGEMENT : Réduction du padding à p-1 pour que l'icône remplisse plus le cadre */}
               <Image 
-                src="/logo_webappci.png" 
-                alt="Logo Web App CI"
-                fill
-                className="object-contain p-1"
-                priority
+                  src="/logo_webappci.png" 
+                  alt="Logo webappci" 
+                  width={60}
+                  height={60}
+                  className="object-contain group-hover:scale-105 transition duration-300 shrink-0"
+                  priority 
               />
-            </div>
-            <span className="font-heading font-bold text-xl tracking-tight text-white">
-              WebApp<span className="text-teal-400">CI</span>
-            </span>
+              
+              {/* Textes du logo */}
+              <div className="flex flex-col">
+                  <span className="self-center text-2xl font-black tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-teal-300">
+                      WEBAPPCI<span className="text-teal-400">.COM</span>
+                  </span>
+                  <span className="text-xs text-slate-500 font-bold tracking-[0.2em] uppercase flex items-center gap-1.5 mt-1">
+                      <ShieldCheck className="w-3 h-3 text-teal-500" /> PWA SAAS
+                  </span>
+              </div>
           </Link>
 
           {/* Navigation Desktop */}
