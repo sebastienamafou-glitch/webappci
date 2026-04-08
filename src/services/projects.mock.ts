@@ -69,7 +69,7 @@ export const projects: Project[] = [
       alt: "Interface Kolisyn",
       blurData: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+ZNPQAIXwM4li8Y8AAAAABJRU5ErkJggg=="
     },
-    liveUrl: "https://kolisyn.vercel.app/",
+    liveUrl: "https://kolisync.vercel.app/",
     isPublished: true,
     createdAt: new Date("2026-02-25"),
   }
