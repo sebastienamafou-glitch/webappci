@@ -54,5 +54,23 @@ export const projects: Project[] = [
     liveUrl: "https://agri-lien.vercel.app/",
     isPublished: true,
     createdAt: new Date("2026-02-25"),
+  },
+  {
+    id: "Kolisyn",
+    title: "Kolisyn",
+    description: "Une plateforme. Deux solutions. Kolisyn : Simplifiez la logistique, optimisez les itinéraires et réduisez les coûts de transport en Côte d'Ivoire.",
+    clientName: "plateforme de logistique",
+    category: "SaaS",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "PWA"],
+    pwaFeatures: ["Traçabilité hors-ligne", "suivi en temps réel"],
+    metrics: ["Satisfaction client", "optimisation des itinéraires"],
+    coverImage: {
+      url: "/kolisyn.jpg", 
+      alt: "Interface Kolisyn",
+      blurData: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+ZNPQAIXwM4li8Y8AAAAABJRU5ErkJggg=="
+    },
+    liveUrl: "https://kolisyn.vercel.app/",
+    isPublished: true,
+    createdAt: new Date("2026-02-25"),
   }
 ];
